@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import todoList from './todos.json';
 
-class listItem extends Component {
-  constructor(props) {
-    super(props);
-     	this.state = {
-    		value: props.value,
-       	isCompleted: false,
-     	}
-  }
+class ListItem extends Component {
   render() {
     return (
-    <li className={this.props.isCompleted}>
+    <li className= {this.props.isCompleted ? "completed" : null}>
       <div className="view">
         <input className="toggle"  type="checkbox" autofocus />
         <label>{this.props.value}</label>
@@ -25,21 +17,16 @@ class listItem extends Component {
 }
 
 class TodoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       todos: todoList,
     }
-
-  }
-
  render() {
+	console.log(this.state.todos)
    return (
     <section className="main">
     <ul className="todo-list">
-      {/* These are here just to show the structure of the list items */}
-      {/* List items should get the class `editing` when editing and `completed` when marked as completed */}
-      {this.state.todos.map( todo => <listItem value={todo.title} isCompleted={todo.completed} /> )}
+
+      {this.state.todos.map( todo => <ListItem value={todo.title} isCompleted={todo.completed} /> )}
     </ul>
   </section>
    )
@@ -54,14 +41,9 @@ class App extends Component {
           <h1>todos</h1>
           <input className="new-todo" placeholder="What needs to be done?" autofocus />
         </header>
-        {/* This section should be hidden by default and shown when there are todos */}
         <TodoList />
-        {/* This footer should hidden by default and shown when there are todos */}
         <footer className="footer">
-          {/* This should be `0 items left` by default */}
           <span className="todo-count"><strong>0</strong> item(s) left</span>
-          {/* Remove this if you don't implement routing */}
-          {/* Hidden if no completed items are left ↓ */}
           <button className="clear-completed">Clear completed</button>
         </footer>
       </section>
